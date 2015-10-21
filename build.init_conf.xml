@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="paywall-db-init-conf" default="init_conf">
+    
+
+    <!-- ============================================================================================
+         Run Ant for this project before building the ultimate target(s) of this project.
+         ============================================================================================ -->
+    
+    
+    <!-- Host specific database-related configuration options. -->
+    <property file="/etc/phoenix/conf/db/tair.database.properties"/>
+    <property file="/etc/phoenix/conf/db/pub.database.properties"/>
+
+    <!-- Custom task definition: PropertySubstituter -->
+    <taskdef name="propsubst" classname="org.phoenixbioinformatics.devtools.ant.PropertySubstituter" classpath="bin/dev-tools.jar" />
+
+    <property name="src" value="src" />
+    <!-- =================================
+         target: configuration files
+         ================================= -->
+    <target name="init_conf" description="Initialize configuration files for the given host/environment">
+        <propsubst input="conf/database.properties" output="bin/com/poesys/db/database.properties" />
+        <propsubst input="conf/database.properties" output="src/com/poesys/db/database.properties" />
+        <propsubst input="conf/database.properties" output="target/classes/com/poesys/db/database.properties" />
+    </target>
+    
+</project>
